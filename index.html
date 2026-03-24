@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galaxia de Amairani</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@1,400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Fondo estelar -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- Contenedor principal -->
+  <div class="universe">
+
+    <!-- Nebulosa de fondo -->
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <!-- Título: Amairani -->
+    <div class="title-container">
+      <h1 class="galaxy-title">
+        <span class="letter" style="--i:0">A</span>
+        <span class="letter" style="--i:1">M</span>
+        <span class="letter" style="--i:2">A</span>
+        <span class="letter" style="--i:3">I</span>
+        <span class="letter" style="--i:4">R</span>
+        <span class="letter" style="--i:5">A</span>
+        <span class="letter" style="--i:6">N</span>
+        <span class="letter" style="--i:7">I</span>
+      </h1>
+      <p class="subtitle">✦ una galaxia para ti ✦</p>
+    </div>
+
+    <!-- Sistema orbital central -->
+    <div class="solar-system">
+
+      <!-- Anillos de órbita -->
+      <div class="orbit orbit-1">
+        <div class="flower-orbit flower-1"></div>
+      </div>
+      <div class="orbit orbit-2">
+        <div class="flower-orbit flower-2"></div>
+        <div class="flower-orbit flower-3"></div>
+      </div>
+      <div class="orbit orbit-3">
+        <div class="flower-orbit flower-4"></div>
+        <div class="flower-orbit flower-5"></div>
+        <div class="flower-orbit flower-6"></div>
+      </div>
+
+      <!-- Júpiter en el centro -->
+      <div class="jupiter-wrapper">
+        <div class="jupiter-glow"></div>
+        <div class="jupiter" id="jupiter">
+          <div class="jupiter-bands">
+            <div class="band band-1"></div>
+            <div class="band band-2"></div>
+            <div class="band band-3"></div>
+            <div class="band band-4"></div>
+            <div class="band band-5"></div>
+            <div class="band band-6"></div>
+            <div class="band band-7"></div>
+          </div>
+          <div class="great-red-spot"></div>
+          <div class="jupiter-ring"></div>
+        </div>
+        <div class="jupiter-shadow"></div>
+      </div>
+
+    </div>
+
+    <!-- Flores SVG flotantes (generadas por JS) -->
+    <canvas id="flowersCanvas"></canvas>
+
+    <!-- Partículas de polvo estelar -->
+    <div id="stardust"></div>
+
+  </div>
+
+  <!-- Modal mensaje BELUM -->
+  <div id="belumModal" class="belum-modal hidden">
+    <div class="belum-card">
+      <div class="belum-stars">✦ ✦ ✦</div>
+      <div class="belum-flowers-row" id="belumFlowersRow"></div>
+      <p class="belum-text">Con mucho esfuerzo de tu amigo</p>
+      <h2 class="belum-name">BELUM</h2>
+      <div class="belum-flowers-row" id="belumFlowersRow2"></div>
+      <button class="belum-close" id="belumClose">✕ Cerrar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+/* ===========================
+   GALAXIA DE AMAIRANI
+   styles.css
+   =========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@1,400&display=swap');
+
+/* --- Variables --- */
+:root {
+  --gold:        #f5c518;
+  --gold-light:  #ffe566;
+  --gold-dark:   #c8960c;
+  --jupiter-1:   #c49a6c;
+  --jupiter-2:   #8b4513;
+  --jupiter-3:   #d2691e;
+  --jupiter-4:   #f4a460;
+  --jupiter-5:   #deb887;
+  --jupiter-6:   #a0522d;
+  --space-dark:  #02020e;
+  --nebula-blue: #0a0a3a;
+  --purple:      #6a0dad;
+  --pink:        #ff69b4;
+  --cyan:        #00ced1;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--space-dark);
+  font-family: 'Cinzel Decorative', serif;
+  cursor: default;
+}
+
+/* --- Canvas de estrellas --- */
+#starsCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- Universo contenedor --- */
+.universe {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* --- Nebulosas --- */
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: nebulaAppear 3s ease forwards;
+}
+
+.nebula-1 {
+  width: 600px; height: 500px;
+  background: radial-gradient(ellipse, rgba(106,13,173,0.35) 0%, transparent 70%);
+  top: -100px; left: -150px;
+  animation-delay: 0.5s;
+}
+.nebula-2 {
+  width: 700px; height: 600px;
+  background: radial-gradient(ellipse, rgba(0,100,180,0.25) 0%, transparent 70%);
+  bottom: -150px; right: -200px;
+  animation-delay: 1s;
+}
+.nebula-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse, rgba(255,100,150,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 1.5s;
+}
+
+@keyframes nebulaAppear {
+  to { opacity: 1; }
+}
+
+/* --- Título Amairani --- */
+.title-container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.galaxy-title {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: flex;
+  gap: 0.05em;
+  justify-content: center;
+  filter: drop-shadow(0 0 30px rgba(245,197,24,0.7));
+}
+
+.letter {
+  display: inline-block;
+  background: linear-gradient(160deg, #fff8d6 0%, var(--gold-light) 30%, var(--gold) 60%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: translateY(-40px) scale(0.6);
+  animation: letterDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--i) * 0.1s + 0.3s);
+  text-shadow: none;
+  cursor: default;
+  transition: transform 0.2s;
+}
+
+.letter:hover {
+  transform: translateY(-8px) scale(1.15);
+  filter: drop-shadow(0 0 20px var(--gold-light));
+}
+
+@keyframes letterDrop {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.subtitle {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: clamp(0.8rem, 2vw, 1.1rem);
+  color: rgba(255, 230, 100, 0.65);
+  letter-spacing: 0.3em;
+  margin-top: 10px;
+  opacity: 0;
+  animation: fadeUp 1.5s ease forwards 1.5s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================
+   SISTEMA SOLAR
+   ======================== */
+.solar-system {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+/* --- Órbitas --- */
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  animation: spin linear infinite;
+  box-shadow: 0 0 8px rgba(245, 197, 24, 0.1) inset;
+}
+
+.orbit-1 { width: 210px; height: 210px; animation-duration: 8s; }
+.orbit-2 { width: 300px; height: 300px; animation-duration: 14s; animation-direction: reverse; }
+.orbit-3 { width: 400px; height: 400px; animation-duration: 22s; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* --- Flores SVG en órbita --- */
+.flower-orbit {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 8px rgba(255,220,50,1));
+  animation: counterSpin linear infinite, flowerPulse 2s ease-in-out infinite alternate;
+}
+
+.orbit-1 .flower-orbit { animation-duration: 8s, 2s; }
+.orbit-2 .flower-orbit { animation-duration: 14s, 2.5s; }
+.orbit-3 .flower-orbit { animation-duration: 22s, 3s; }
+
+.flower-3 { top: auto !important; bottom: -18px; }
+.flower-5 { top: auto !important; left: 50% !important; transform: translateX(-50%) rotate(-120deg) !important; }
+.flower-6 { top: auto !important; left: 50% !important; transform: translateX(-50%) rotate(120deg) !important; }
+
+@keyframes counterSpin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(-360deg); }
+}
+@keyframes flowerPulse {
+  from { filter: drop-shadow(0 0 6px rgba(255,220,50,0.8));  transform: translateX(-50%) rotate(0deg) scale(1);    }
+  to   { filter: drop-shadow(0 0 20px rgba(255,240,80,1));   transform: translateX(-50%) rotate(0deg) scale(1.25); }
+}
+
+/* ========================
+   CANVAS DE FLORES FLOTANTES
+   ======================== */
+#flowersCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ========================
+   MODAL BELUM
+   ======================== */
+.belum-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 10, 0.75);
+  backdrop-filter: blur(6px);
+  animation: modalFadeIn 0.4s ease;
+}
+
+.belum-modal.hidden {
+  display: none;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.belum-card {
+  background: linear-gradient(145deg, #0a0a2e 0%, #12123a 50%, #0a0a2e 100%);
+  border: 2px solid rgba(245,197,24,0.5);
+  border-radius: 24px;
+  padding: 40px 50px;
+  text-align: center;
+  box-shadow:
+    0 0 40px rgba(245,197,24,0.3),
+    0 0 80px rgba(100,50,200,0.2),
+    inset 0 0 30px rgba(245,197,24,0.05);
+  max-width: 420px;
+  width: 90%;
+  animation: cardPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+@keyframes cardPop {
+  from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+  to   { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+
+.belum-stars {
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.5em;
+  margin-bottom: 16px;
+  animation: starsBlink 1.5s ease-in-out infinite alternate;
+}
+@keyframes starsBlink {
+  from { opacity: 0.5; }
+  to   { opacity: 1;   }
+}
+
+.belum-flowers-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.belum-text {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: rgba(255,230,120,0.85);
+  margin: 18px 0 8px;
+  letter-spacing: 0.05em;
+}
+
+.belum-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #fff8d6 0%, var(--gold-light) 40%, var(--gold) 70%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.2em;
+  filter: drop-shadow(0 0 20px rgba(245,197,24,0.8));
+  animation: namePulse 2s ease-in-out infinite alternate;
+}
+@keyframes namePulse {
+  from { filter: drop-shadow(0 0 12px rgba(245,197,24,0.6)); }
+  to   { filter: drop-shadow(0 0 30px rgba(245,197,24,1));   }
+}
+
+.belum-close {
+  margin-top: 24px;
+  background: transparent;
+  border: 1.5px solid rgba(245,197,24,0.5);
+  color: rgba(245,197,24,0.8);
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.75rem;
+  padding: 8px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: all 0.25s;
+}
+.belum-close:hover {
+  background: rgba(245,197,24,0.15);
+  color: var(--gold-light);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(245,197,24,0.4);
+}
+
+/* ========================
+   JÚPITER
+   ======================== */
+.jupiter-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jupiter-glow {
+  position: absolute;
+  width: 170px; height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,140,60,0.6) 0%, rgba(100,50,10,0.3) 50%, transparent 70%);
+  filter: blur(18px);
+  animation: glowPulse 3s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes glowPulse {
+  from { transform: scale(1);   opacity: 0.7; }
+  to   { transform: scale(1.2); opacity: 1;   }
+}
+
+.jupiter {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+    #e8c080 0%, #c49a6c 8%, #8b4513 16%, #d2691e 24%,
+    #f4a460 32%, #a0522d 40%, #deb887 48%, #c49a6c 56%,
+    #8b4513 64%, #d2691e 72%, #e8c080 80%, #c8860a 88%, #a05010 100%
+  );
+  box-shadow:
+    inset -20px -10px 40px rgba(0,0,0,0.5),
+    inset 8px 5px 20px rgba(255,220,150,0.3),
+    0 0 40px rgba(200,140,60,0.5),
+    0 0 80px rgba(150,80,20,0.3);
+  animation: jupiterRotate 12s linear infinite;
+  z-index: 5;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.jupiter:hover {
+  transform: scale(1.08);
+  box-shadow:
+    inset -20px -10px 40px rgba(0,0,0,0.5),
+    0 0 60px rgba(245,197,24,0.7),
+    0 0 120px rgba(200,140,60,0.5);
+}
+
+@keyframes jupiterRotate {
+  from { background-position: 0% 0%; }
+  to   { background-position: 200% 0%; }
+}
+
+/* Franjas de Júpiter */
+.jupiter-bands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.band {
+  position: absolute;
+  width: 100%;
+  opacity: 0.55;
+  border-radius: 50% / 8%;
+}
+.band-1 { height: 14%; top: 5%;  background: rgba(139,69,19,0.6); }
+.band-2 { height: 10%; top: 20%; background: rgba(244,164,96,0.4); }
+.band-3 { height: 16%; top: 32%; background: rgba(101,67,33,0.65); }
+.band-4 { height: 8%;  top: 50%; background: rgba(210,105,30,0.5); }
+.band-5 { height: 12%; top: 60%; background: rgba(139,69,19,0.55); }
+.band-6 { height: 9%;  top: 74%; background: rgba(244,164,96,0.45); }
+.band-7 { height: 8%;  top: 85%; background: rgba(101,67,33,0.5); }
+
+/* Gran Mancha Roja */
+.great-red-spot {
+  position: absolute;
+  width: 36px; height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #c0392b 0%, #922b21 50%, #7b241c 100%);
+  top: 52%; left: 28%;
+  box-shadow: 0 0 10px rgba(192,57,43,0.8), inset 0 2px 4px rgba(255,100,80,0.5);
+  animation: redSpotPulse 4s ease-in-out infinite alternate;
+  z-index: 6;
+}
+
+@keyframes redSpotPulse {
+  from { transform: scale(1);    box-shadow: 0 0 10px rgba(192,57,43,0.8); }
+  to   { transform: scale(1.12); box-shadow: 0 0 20px rgba(255,80,60,1);   }
+}
+
+/* Anillo de Júpiter */
+.jupiter-ring {
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: rgba(200,150,60,0.4);
+  border-bottom-color: rgba(200,150,60,0.4);
+  top: -20px; left: -20px;
+  transform: rotateX(70deg);
+  pointer-events: none;
+  animation: ringGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes ringGlow {
+  from { border-color: rgba(200,150,60,0.3) transparent; }
+  to   { border-color: rgba(245,197,24,0.6) transparent; }
+}
+
+.jupiter-shadow {
+  position: absolute;
+  width: 100px; height: 30px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: -30px; left: 50%;
+  transform: translateX(-50%);
+  filter: blur(8px);
+  z-index: 4;
+}
+
+/* ========================
+   FLORES FLOTANTES
+   ======================== */
+.floating-flowers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.float-flower {
+  position: absolute;
+  font-size: 1.4rem;
+  animation: floatDrift linear infinite;
+  filter: drop-shadow(0 0 8px rgba(255,220,50,0.8));
+}
+
+.f1  { top: 8%;  left: 5%;  animation-duration: 6s;  animation-delay: 0s;   font-size: 1.8rem; }
+.f2  { top: 15%; right: 8%; animation-duration: 8s;  animation-delay: 1s;   font-size: 1.3rem; }
+.f3  { top: 70%; left: 7%;  animation-duration: 7s;  animation-delay: 2s;   font-size: 1.5rem; }
+.f4  { top: 80%; right: 6%; animation-duration: 9s;  animation-delay: 0.5s; font-size: 1.7rem; }
+.f5  { top: 40%; left: 3%;  animation-duration: 5.5s;animation-delay: 1.5s; font-size: 1.2rem; }
+.f6  { top: 50%; right: 4%; animation-duration: 7.5s;animation-delay: 3s;   font-size: 1.6rem; }
+.f7  { top: 88%; left: 40%; animation-duration: 6.5s;animation-delay: 0.8s; font-size: 1.4rem; }
+.f8  { top: 5%;  left: 55%; animation-duration: 8.5s;animation-delay: 2.5s; font-size: 1.9rem; }
+
+@keyframes floatDrift {
+  0%   { transform: translateY(0px)   rotate(0deg); opacity: 0.7; }
+  25%  { transform: translateY(-15px) rotate(8deg); opacity: 1;   }
+  50%  { transform: translateY(-8px)  rotate(-5deg);opacity: 0.9; }
+  75%  { transform: translateY(-20px) rotate(10deg);opacity: 1;   }
+  100% { transform: translateY(0px)   rotate(0deg); opacity: 0.7; }
+}
+
+/* ========================
+   POLVO ESTELAR
+   ======================== */
+#stardust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.dust-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gold-light);
+  animation: dustFloat linear infinite;
+  opacity: 0;
+}
+
+@keyframes dustFloat {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* ========================
+   CURSOR PERSONALIZADO
+   ======================== */
+body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='3' fill='%23f5c518'/%3E%3C/svg%3E") 12 12, crosshair; }
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+@media (max-width: 600px) {
+  .solar-system { width: 300px; height: 300px; }
+  .orbit-1 { width: 155px; height: 155px; }
+  .orbit-2 { width: 220px; height: 220px; }
+  .orbit-3 { width: 290px; height: 290px; }
+  .jupiter { width: 100px; height: 100px; }
+  .great-red-spot { width: 26px; height: 16px; }
+  .galaxy-title { font-size: 2rem; }
+}
